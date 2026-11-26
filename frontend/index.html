@@ -1,178 +1,546 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Agri-WeedDetect Pro | YOLOv8</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WeedVision | Smart Weed Detection for Modern Farms</title>
+    <meta name="description" content="AI-powered weed detection for precision agriculture" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --soil-brown: #4a3b2a;
+            --field-green: #3c7d42;
+            --sage-green: #a8d5bc;
+            --harvest-gold: #d4a853;
+            --terracotta: #c45a4a;
+            --cream-light: #fdf6f0;
+            --mist-gray: #e8e6e3;
+            --font-serif: 'Outfit', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(rgba(253, 246, 240, .94), rgba(253, 246, 240, .94)), url('/assets/Sample_input_img_3.jpg') center/cover fixed;
+            color: #333;
+            margin: 0;
+        }
+        /* ----- Header ----- */
+
+        header {
+            background: linear-gradient(120deg, rgba(74, 59, 42, .88), rgba(45, 90, 48, .78)), url('/assets/Sample_input_img_2.jpg') center 58%/cover;
+            color: #fff;
+            padding: 4.5rem 1.5rem 3.5rem;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+        }
+
+        header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: .5rem;
+            letter-spacing: .3px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: .9;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        /* ----- Navbar ----- */
+
+        .top-nav {
+            background: #2d5a30;
+            padding: .75rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+        }
+
+        .top-nav .navbar-brand {
+            font-weight: 700;
+            color: var(--harvest-gold);
+            font-size: 1.4rem;
+        }
+
+        .top-nav .nav-link {
+            color: #cfd5c7;
+            font-weight: 500;
+        }
+
+        .top-nav .nav-link:hover {
+            color: #fff;
+        }
+        /* ----- Main Layout ----- */
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .row.g-4>[class*="col-"] {
+            margin-bottom: 1.5rem;
+        }
+        /* ----- Cards ----- */
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .07);
+            overflow: hidden;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .live-feed-card .card-body {
+            background: linear-gradient(rgba(255, 255, 255, .88), rgba(255, 255, 255, .88)), url('/assets/Sample_input_img_1.png') center/cover;
+        }
+
+        .analysis-card .card-body {
+            background: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .9)), url('/assets/Sample_input_img_3.jpg') center/cover;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+        }
+
+        .card-header {
+            background: #f0f4f0;
+            border-bottom: 1px solid #e0e4e0;
+            color: var(--soil-brown);
+            font-weight: 600;
+            padding: .85rem 1rem;
+            font-size: .9rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+        /* ----- Buttons ----- */
+
+        .btn {
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all .2s ease;
+        }
+
+        .btn-primary {
+            background: var(--field-green);
+            border-color: var(--field-green);
+        }
+
+        .btn-primary:hover {
+            background: #2c6c50;
+            border-color: #2c6c50;
+        }
+
+        .btn-success {
+            background: var(--sage-green);
+            border-color: var(--sage-green);
+        }
+
+        .btn-success:hover {
+            background: #8fbc9e;
+            border-color: #8fbc9e;
+        }
+
+        .btn-terracotta {
+            background: var(--terracotta);
+            border-color: var(--terracotta);
+        }
+
+        .btn-terracotta:hover {
+            background: #a63d2f;
+            border-color: #a63d2f;
+        }
+
+        .btn-outline-field {
+            border: 2px solid var(--field-green);
+            color: var(--field-green);
+            background: transparent;
+        }
+
+        .btn-outline-field:hover {
+            background: var(--field-green);
+            color: #fff;
+        }
+        /* ----- Tabs / Status Chips ----- */
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: .4rem .8rem;
+            background: #e8f0e7;
+            color: var(--soil-brown);
+            border-radius: 20px;
+            font-size: .75rem;
+            font-weight: 600;
+            margin-right: .4rem;
+            margin-bottom: .4rem;
+        }
+
+        .chip.warning {
+            background: #fff4e5;
+            color: var(--terracotta);
+        }
+
+        .language-toggle {
+            margin-left: auto;
+            background: rgba(255, 255, 255, .12);
+            border: 1px solid rgba(255, 255, 255, .35);
+            color: #fff;
+            border-radius: 20px;
+            padding: .35rem .75rem;
+            font-weight: 600;
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, .22);
+            color: #fff;
+        }
+
+        .about-section {
+            max-width: 1200px;
+            margin: 2.5rem auto 0;
+            padding: 2rem 1.5rem;
+            background: rgba(255, 255, 255, .96);
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+        }
+
+        .about-section h2 {
+            color: var(--soil-brown);
+            font-weight: 700;
+        }
+
+        .how-step {
+            height: 100%;
+            padding: 1.25rem;
+            border: 1px solid #e1e8e0;
+            border-radius: 12px;
+            background: #f8fbf8;
+        }
+
+        .how-step .step-icon {
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--field-green);
+            color: #fff;
+            font-size: 1.2rem;
+        }
+        /* ----- Confidence Gauge ----- */
+
+        .gauge-wrapper {
+            position: relative;
+            width: 180px;
+            height: 90px;
+        }
+
+        .gauge-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .gauge-bg {
+            fill: none;
+            stroke: #e0e4e0;
+            stroke-width: 8;
+            stroke-linecap: round;
+        }
+
+        .gauge-progress {
+            fill: none;
+            stroke: var(--field-green);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 251.2;
+            transition: stroke-dashoffset .8s ease-out;
+        }
+
+        .gauge-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+        }
+
+        .gauge-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--soil-brown);
+        }
+
+        .gauge-label-text {
+            font-size: .85rem;
+            color: #666;
+        }
+        /* ----- Results Grid ----- */
+
+        .result-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: .5rem .9rem;
+            background: #f0f4f0;
+            border-radius: 20px;
+            font-size: .85rem;
+            margin: .2rem;
+            border: 1px solid #e0e4e0;
+        }
+
+        .result-badge .bi {
+            margin-right: .4rem;
+            font-size: 1rem;
+        }
+        /* ----- History Items ----- */
+
+        .history-item {
+            padding: .8rem 1rem;
+            background: #fafafa;
+            border: 1px solid #e0e4e0;
+            border-radius: 8px;
+            margin-bottom: .8rem;
+            transition: background .2s;
+        }
+
+        .history-item:hover {
+            background: #f5f5f5;
+        }
+
+        .history-item .bi {
+            color: var(--field-green);
+            font-size: 1rem;
+        }
+
+        .history-item .badge {
+            font-size: .7rem;
+            padding: .3rem .5rem;
+        }
+        /* ----- Footer ----- */
+
+        footer {
+            background: #fff;
+            border-top: 1px solid #e0e4e0;
+            padding: 1.5rem 1rem;
+            margin-top: 3rem;
+            font-size: .85rem;
+            color: #666;
+        }
+
+        footer a {
+            color: var(--field-green);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+        /* ----- Responsive ----- */
+
+        @media (max-width: 992px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .main>.row>[class*="col-"]:nth-child(n+3) {
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav {
+                flex-direction: column;
+                gap: .8rem;
+            }
+            .top-nav .nav-link {
+                margin-bottom: .2rem;
+            }
+            header h1 {
+                font-size: 1.7rem;
+            }
+            .gauge-wrapper {
+                width: 140px;
+                height: 70px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-light">
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-success py-3">
-    <div class="container-fluid px-lg-5">
-      <a class="navbar-brand fw-bold" href="#">WeedDetect YOLOv8</a>
-      <div class="ms-auto d-flex align-items-center">
-        <span class="text-white small opacity-75 d-none d-md-block">Automated Weed Detection & Classification Using YOLO</span>
-      </div>
-    </div>
-  </nav>
-
-  <header class="bg-success text-white py-5 shadow-sm">
-    <div class="container-fluid px-lg-5">
-      <div class="row align-items-center">
-        <div class="col-lg-7">
-          <h1 class="display-4 fw-bold">Detect and Classify Weeds in the Field</h1>
-          <p class="lead opacity-75 mb-4">Use your camera or upload images to automatically detect weeds using YOLOv8. Select "Allow Location" to help us map Weed species.</p>
-          <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-white text-success px-3 py-2">Multi-Species Detection & Classification</span>
-            <span class="badge bg-white text-success px-3 py-2">Environmental Resilience</span>
-            <span class="badge bg-white text-success px-3 py-2">High-Fidelity Detection</span>
-            <span class="badge bg-white text-success px-3 py-2">Chemical Optimization</span>
-            <span class="badge bg-white text-success px-3 py-2">Ready for Real-Time Edge Processing</span>
-          </div>
+<body>
+    <!-- Top navigation with farm-themed chips -->
+    <nav class="top-nav">
+        <div class="container-fluid d-flex align-items-center flex-wrap">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-eye me-2"></i> WeedVision
+            </a>
+            <span class="chip" data-i18n="navRealtime">Real-time Detection</span>
+            <span class="chip warning" data-i18n="navAI">AI Classification</span>
+            <span class="chip" data-i18n="navSpecies">3 Species</span>
+            <a class="chip text-decoration-none" href="/more-about" data-i18n="moreAbout">More About WeedVision</a>
+            <button id="language-toggle" class="language-toggle btn btn-sm ms-2" type="button" aria-label="Switch language">
+                à¤¹à¤¿à¤‚à¤¦à¥€
+            </button>
         </div>
-        <div class="col-lg-4 offset-lg-1 d-none d-lg-block">
-          <div class="card border-0 shadow-lg text-dark">
-            <div class="card-body p-4">
-              <h6 class="fw-bold mb-3">QUICK START GUIDE</h6>
-              <ol class="small text-muted mb-0">
-                <li class="mb-2">Start the live feed or upload a photo.</li>
-                <li class="mb-2">Approve location for mapping (optional).</li>
-                <li>Click badges to "Learn more about the weed".</li>
-               </ol>
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-       </header>
+    </nav>
 
-       <main class="py-4">
-        <div class="container-fluid px-lg-5">
-         <div class="row g-4">
-          <div class="col-lg-3">
-           <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-success text-white fw-bold">LIVE FEED</div>
-            <div class="card-body">
-              <div class="ratio ratio-4x3 bg-black rounded overflow-hidden mb-3">
-                <video id="live-video" autoplay playsinline class="w-100 h-100"></video>
-              </div>
-              <div class="d-grid gap-2">
-                <button id="start-camera-btn" class="btn btn-primary">Start Feed</button>
-                <button id="capture-frame-btn" class="btn btn-success" disabled>Capture & Detect</button>
-                <button id="stop-camera-btn" class="btn btn-danger btn-sm d-none">Stop</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="card shadow-sm border-0">
-            <div class="card-header bg-success text-white fw-bold">IMAGE UPLOAD</div>
-            <div class="card-body">
-              <input type="file" id="image-input" class="form-control mb-2" accept="image/*">
-              <button id="image-detect-btn" class="btn btn-success w-100">Analyze Image</button>
-            </div>
-          </div>
+    <!-- Header / Hero -->
+    <header>
+        <div class="container-fluid px-5">
+            <h1>WeedVision</h1>
+            <p data-i18n="heroText">AI-powered precision weed detection for modern farms. Protect your crops and reduce chemical use with real-time image analysis.</p>
         </div>
+    </header>
 
-        <div class="col-lg-6">
-          <div class="card shadow-sm border-0 mb-4">
-            <div class="card-body p-0 position-relative" style="min-height: 400px;">
-                <div id="ai-loader" class="position-absolute w-100 h-100 bg-white d-none flex-column align-items-center justify-content-center" style="z-index: 10;">
-                    <div class="spinner-border text-success mb-3" role="status"></div>
-                    <p class="fw-bold text-success">AI ANALYSIS IN PROGRESS...</p>
+    <main class="main">
+        <div class="row g-4">
+
+            <!-- Left column: Live Feed + Upload -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card live-feed-card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-success text-white fw-bold" data-i18n="liveFeed">LIVE FEED</div>
+                    <div class="card-body">
+                        <div class="ratio ratio-4x3 bg-black rounded overflow-hidden mb-3">
+                            <video id="live-video" autoplay playsinline class="w-100 h-100"></video>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="start-camera-btn" class="btn btn-primary" data-i18n="startFeed">Start Feed</button>
+                            <button id="capture-frame-btn" class="btn btn-success" disabled data-i18n="captureDetect">Capture & Detect</button>
+                            <button id="stop-camera-btn" class="btn btn-danger btn-sm d-none" data-i18n="stop">Stop</button>
+                        </div>
+                    </div>
                 </div>
-                <div id="placeholder-text" class="h-100 d-flex align-items-center justify-content-center text-center p-5">
-                    <p class="text-muted">Processed images will appear here.</p>
+
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-success text-white fw-bold" data-i18n="imageUpload">IMAGE UPLOAD</div>
+                    <div class="card-body">
+                        <input type="file" id="image-input" class="form-control mb-2" accept="image/*">
+                        <button id="image-detect-btn" class="btn btn-success w-100" data-i18n="analyzeImage">Analyze Image</button>
+                    </div>
                 </div>
-                <img id="result-image" class="img-fluid w-100 d-none" alt="Detection Result">
             </div>
-            <div id="conf-scores" class="card-footer bg-white border-0 py-3">
-                <span class="text-muted small">No detections yet.</span>
-            </div>
-          </div>
 
-          <div class="card shadow-sm border-0">
-              <div class="card-header bg-success text-white fw-bold">DETECTION CONFIDENCE</div>
-              <div class="card-body text-center py-4">
-                  <div class="gauge-wrapper" style="position: relative; display: inline-block;">
-                      <svg width="200" height="110">
-                          <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="#e9ecef" stroke-width="12" stroke-linecap="round"/>
-                          <path id="gauge-progress" d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="#198754" stroke-width="12" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
-                      </svg>
-                      <div style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%);">
-                          <h2 id="gauge-value" class="fw-bold mb-0">0%</h2>
-                          <small id="gauge-label" class="text-muted">Ready</small>
-                      </div>
-                  </div>
-              </div>
-          </div>
-        </div>
+            <!-- Middle column: Results + Gauge -->
+            <div class="col-md-6 col-lg-6">
+                <div class="card analysis-card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-success text-white fw-bold" data-i18n="confidence">DETECTION CONFIDENCE</div>
+                    <div class="card-body text-center py-4 position-relative">
+                        <div id="ai-loader" class="position-absolute w-100 h-100 bg-white d-none flex-column align-items-center justify-content-center" style="z-index: 10;">
+                            <div class="spinner-border text-success mb-3" role="status"></div>
+                            <p class="fw-bold text-success" data-i18n="analysisProgress">AI ANALYSIS IN PROGRESS...</p>
+                        </div>
 
-        <div class="col-lg-3">
-          <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-success text-white fw-bold">WEED INFO PANEL</div>
-            <div id="weed-info-panel" class="card-body small" style="min-height: 150px;">
-              <p class="text-muted">Click a badge to learn more.</p>
-            </div>
-          </div>
-          
-          <div class="row g-2 mt-1">
-             <div class="col-lg-12"> <div class="d-flex align-items-center mb-3">
-                     <i class="bi bi-geo-alt-fill text-danger me-2"></i>
-                     <h5 class="mb-0 fw-bold">FIELD MAPPING</h5>
-                 </div>
-        
-                 <div class="map-container animate-fade-in">
-                     <button id="map-expand-btn" class="btn btn-light btn-sm shadow-sm border">
-                         <i class="bi bi-arrows-fullscreen"></i>
-                     </button>
-                     <div id="field-map"></div>
-                 </div>
-             </div>
-          </div>
-           
-          <div class="card shadow-sm border-0">
-            <div class="card-header bg-success text-white fw-bold">DETECTION HISTORY</div>
-            <div id="history-list" class="list-group list-group-flush small"></div>
-          </div>
-        </div>
-       </div>
-
-       <div class="row mt-4">
-           <div class="col-12">
-               <div class="card border-0 bg-dark text-white shadow-sm">
-                   <div class="card-body p-4">
-                       <div class="row align-items-center">
-                           <div class="col-md-4 border-end border-secondary">
-                                <h6 class="fw-bold mb-1"><i class="bi bi-shield-check text-success me-2"></i>Environmental Resilience</h6>
-                                <p class="small text-white-50 mb-0">Tested for reliability in low-light, dust, and rain conditions.</p>
+                        <div class="gauge-wrapper">
+                            <svg class="gauge-svg" width="180" height="90">
+                <path class="gauge-bg" d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="#e0e4e0" stroke-width="12" stroke-linecap="round"/>
+                <path id="gauge-progress" class="gauge-progress" d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="#3c7d42" stroke-width="12" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
+              </svg>
+                            <div class="gauge-label">
+                                <h2 id="gauge-value" class="fw-bold mb-0">0%</h2>
+                                <small id="gauge-label" class="gauge-label-text" data-i18n="ready">Ready</small>
                             </div>
-                            <div class="col-md-8 d-flex justify-content-around text-center pt-3 pt-md-0">
-                                 <div><i class="bi bi-brightness-low fs-4 text-warning"></i><div class="small-text mt-1">Low Light</div></div>
-                                 <div><i class="bi bi-cloud-rain fs-4 text-info"></i><div class="small-text mt-1">Rain/Mist</div></div>
-                                 <div><i class="bi bi-wind fs-4 text-secondary"></i><div class="small-text mt-1">Dusty Air</div></div>
-                                 <div><i class="bi bi-thermometer-half fs-4 text-danger"></i><div class="small-text mt-1">Variable Temp</div></div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
-  </main>
+                        </div>
+                    </div>
+                </div>
 
-  <footer class="bg-white py-4 border-top">
-    <div class="container-fluid px-lg-5 d-flex justify-content-between text-muted small">
-      <span>© 2025 Automated Weed Detection (Final Year Project)</span>
-      <span>Built with YOLOv8 & Flask</span>
-    </div>
-  </footer>
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-success text-white fw-bold" data-i18n="analysisResult">ANALYSIS RESULT</div>
+                    <div class="card-body p-0 position-relative" style="min-height: 250px;">
+                        <div id="placeholder-text" class="h-100 d-flex align-items-center justify-content-center text-center p-5">
+                            <p class="text-muted"><i class="bi bi-camera fs-4 d-block mb-2"></i><span data-i18n="processedHere">Processed images will appear here.</span></p>
+                        </div>
+                        <img id="result-image" class="img-fluid w-100 d-none" alt="Detection Result">
+                    </div>
+                </div>
 
-  <canvas id="capture-canvas" class="d-none"></canvas>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="{{ url_for('static', filename='app.js') }}"></script>
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-success text-white fw-bold" data-i18n="results">RESULTS</div>
+                    <div id="conf-scores" class="card-body small position-relative">
+                        <span class="text-muted small" data-i18n="noDetections">No detections yet.</span>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-success text-white fw-bold" data-i18n="weedInfo">WEED INFO PANEL</div>
+                    <div id="weed-info-panel" class="card-body small" style="min-height: 150px;">
+                        <p class="text-muted" data-i18n="clickBadge">Click a badge to learn more.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right column: History -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-success text-white fw-bold" data-i18n="history">DETECTION HISTORY</div>
+                    <div id="history-list" class="list-group list-group-flush small"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <section id="about" class="about-section">
+        <div class="text-center mb-4">
+            <h2 data-i18n="aboutTitle">About WeedVision</h2>
+            <p class="text-muted mb-0" data-i18n="aboutText">WeedVision is an AI-powered smart farming assistant that identifies weeds in crop images and helps farmers make faster, more targeted weed management decisions.</p>
+        </div>
+        <h3 class="h5 fw-bold text-success text-center mb-3" data-i18n="howTitle">How It Works</h3>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="how-step text-center">
+                    <span class="step-icon mb-3"><i class="bi bi-camera"></i></span>
+                    <h4 class="h6 fw-bold" data-i18n="step1Title">1. Capture an Image</h4>
+                    <p class="small text-muted mb-0" data-i18n="step1Text">Use your camera or upload a clear image of crops and weeds.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="how-step text-center">
+                    <span class="step-icon mb-3"><i class="bi bi-cpu"></i></span>
+                    <h4 class="h6 fw-bold" data-i18n="step2Title">2. AI Analysis</h4>
+                    <p class="small text-muted mb-0" data-i18n="step2Text">The YOLOv8 model scans the image and detects weed species with confidence scores.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="how-step text-center">
+                    <span class="step-icon mb-3"><i class="bi bi-journal-text"></i></span>
+                    <h4 class="h6 fw-bold" data-i18n="step3Title">3. Review Results</h4>
+                    <p class="small text-muted mb-0" data-i18n="step3Text">View the processed image, weed information, and recent detection history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-4 border-top">
+        <div class="container-fluid px-5 d-flex justify-content-between text-muted small">
+            <span data-i18n="footerText">Â© 2026 WeedVision | Smart Weed Detection for Modern Farms</span>
+            <span>Built with YOLOv8 & Flask</span>
+        </div>
+    </footer>
+
+    <canvas id="capture-canvas" class="d-none"></canvas>
+
+    <!-- App JS -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
+
 </html>

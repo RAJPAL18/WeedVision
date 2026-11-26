@@ -5,6 +5,7 @@ venv/
 
 # Local databases and executables
 backend/detections.db
+detections.db
 ngrok/
 ngrok.exe
 
