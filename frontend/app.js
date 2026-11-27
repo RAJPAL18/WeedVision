@@ -32,7 +32,7 @@ const translations = {
         step2Text: "The YOLOv8 model scans the image and detects weed species with confidence scores.",
         step3Title: "3. Review Results",
         step3Text: "View the processed image, weed information, and recent detection history.",
-        footerText: "Â© 2026 WeedVision | Smart Weed Detection for Modern Farms",
+        footerText: "© 2026 WeedVision | Smart Weed Detection for Modern Farms",
         noActivity: "No recent activity",
         found: "found",
         noDatabase: "No database entry for",
@@ -42,44 +42,52 @@ const translations = {
         noWeedsDetected: "No weeds detected."
     },
     hi: {
-        navRealtime: "à¤°à¤¿à¤¯à¤²-à¤Ÿà¤¾à¤‡à¤® à¤ªà¤¹à¤šà¤¾à¤¨",
-        navAI: "à¤à¤†à¤ˆ à¤µà¤°à¥à¤—à¥€à¤•à¤°à¤£",
-        navSpecies: "3 à¤ªà¥à¤°à¤œà¤¾à¤¤à¤¿à¤¯à¤¾à¤",
-        moreAbout: "à¤µà¥€à¤¡à¤µà¤¿à¤œà¤¼à¤¨ à¤•à¥‡ à¤¬à¤¾à¤°à¥‡ à¤®à¥‡à¤‚ à¤…à¤§à¤¿à¤•",
-        heroText: "à¤†à¤§à¥à¤¨à¤¿à¤• à¤–à¥‡à¤¤à¥‹à¤‚ à¤•à¥‡ à¤²à¤¿à¤ à¤à¤†à¤ˆ-à¤¸à¤‚à¤šà¤¾à¤²à¤¿à¤¤ à¤¸à¤Ÿà¥€à¤• à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤ªà¤¹à¤šà¤¾à¤¨à¥¤ à¤°à¤¿à¤¯à¤²-à¤Ÿà¤¾à¤‡à¤® à¤›à¤µà¤¿ à¤µà¤¿à¤¶à¥à¤²à¥‡à¤·à¤£ à¤¸à¥‡ à¤«à¤¸à¤²à¥‹à¤‚ à¤•à¥€ à¤°à¤•à¥à¤·à¤¾ à¤•à¤°à¥‡à¤‚ à¤”à¤° à¤°à¤¸à¤¾à¤¯à¤¨à¥‹à¤‚ à¤•à¤¾ à¤‰à¤ªà¤¯à¥‹à¤— à¤•à¤® à¤•à¤°à¥‡à¤‚à¥¤",
-        liveFeed: "à¤²à¤¾à¤‡à¤µ à¤«à¤¼à¥€à¤¡",
-        startFeed: "à¤«à¤¼à¥€à¤¡ à¤¶à¥à¤°à¥‚ à¤•à¤°à¥‡à¤‚",
-        captureDetect: "à¤•à¥ˆà¤ªà¥à¤šà¤° à¤”à¤° à¤ªà¤¹à¤šà¤¾à¤¨",
-        stop: "à¤°à¥‹à¤•à¥‡à¤‚",
-        imageUpload: "à¤›à¤µà¤¿ à¤…à¤ªà¤²à¥‹à¤¡",
-        analyzeImage: "à¤›à¤µà¤¿ à¤•à¤¾ à¤µà¤¿à¤¶à¥à¤²à¥‡à¤·à¤£ à¤•à¤°à¥‡à¤‚",
-        confidence: "à¤ªà¤¹à¤šà¤¾à¤¨ à¤µà¤¿à¤¶à¥à¤µà¤¾à¤¸",
-        analysisProgress: "à¤à¤†à¤ˆ à¤µà¤¿à¤¶à¥à¤²à¥‡à¤·à¤£ à¤œà¤¾à¤°à¥€ à¤¹à¥ˆ...",
-        ready: "à¤¤à¥ˆà¤¯à¤¾à¤°",
-        analysisResult: "à¤µà¤¿à¤¶à¥à¤²à¥‡à¤·à¤£ à¤ªà¤°à¤¿à¤£à¤¾à¤®",
-        processedHere: "à¤¸à¤‚à¤¸à¤¾à¤§à¤¿à¤¤ à¤›à¤µà¤¿à¤¯à¤¾à¤‚ à¤¯à¤¹à¤¾à¤‚ à¤¦à¤¿à¤–à¤¾à¤ˆ à¤¦à¥‡à¤‚à¤—à¥€à¥¤",
-        results: "à¤ªà¤°à¤¿à¤£à¤¾à¤®",
-        noDetections: "à¤…à¤­à¥€ à¤•à¥‹à¤ˆ à¤ªà¤¹à¤šà¤¾à¤¨ à¤¨à¤¹à¥€à¤‚ à¤¹à¥à¤ˆà¥¤",
-        weedInfo: "à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤œà¤¾à¤¨à¤•à¤¾à¤°à¥€",
-        clickBadge: "à¤…à¤§à¤¿à¤• à¤œà¤¾à¤¨à¤•à¤¾à¤°à¥€ à¤•à¥‡ à¤²à¤¿à¤ à¤¬à¥ˆà¤œ à¤ªà¤° à¤•à¥à¤²à¤¿à¤• à¤•à¤°à¥‡à¤‚à¥¤",
-        history: "à¤ªà¤¹à¤šà¤¾à¤¨ à¤‡à¤¤à¤¿à¤¹à¤¾à¤¸",
-        aboutTitle: "à¤µà¥€à¤¡à¤µà¤¿à¤œà¤¼à¤¨ à¤•à¥‡ à¤¬à¤¾à¤°à¥‡ à¤®à¥‡à¤‚",
-        aboutText: "à¤µà¥€à¤¡à¤µà¤¿à¤œà¤¼à¤¨ à¤à¤• à¤à¤†à¤ˆ-à¤¸à¤‚à¤šà¤¾à¤²à¤¿à¤¤ à¤¸à¥à¤®à¤¾à¤°à¥à¤Ÿ à¤–à¥‡à¤¤à¥€ à¤¸à¤¹à¤¾à¤¯à¤• à¤¹à¥ˆ à¤œà¥‹ à¤«à¤¸à¤² à¤•à¥€ à¤›à¤µà¤¿à¤¯à¥‹à¤‚ à¤®à¥‡à¤‚ à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤ªà¤¹à¤šà¤¾à¤¨à¤¤à¤¾ à¤¹à¥ˆ à¤”à¤° à¤•à¤¿à¤¸à¤¾à¤¨à¥‹à¤‚ à¤•à¥‹ à¤¤à¥‡à¤œà¤¼ à¤µ à¤…à¤§à¤¿à¤• à¤²à¤•à¥à¤·à¤¿à¤¤ à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤ªà¥à¤°à¤¬à¤‚à¤§à¤¨ à¤¨à¤¿à¤°à¥à¤£à¤¯ à¤²à¥‡à¤¨à¥‡ à¤®à¥‡à¤‚ à¤®à¤¦à¤¦ à¤•à¤°à¤¤à¤¾ à¤¹à¥ˆà¥¤",
-        howTitle: "à¤¯à¤¹ à¤•à¥ˆà¤¸à¥‡ à¤•à¤¾à¤® à¤•à¤°à¤¤à¤¾ à¤¹à¥ˆ",
-        step1Title: "1. à¤›à¤µà¤¿ à¤•à¥ˆà¤ªà¥à¤šà¤° à¤•à¤°à¥‡à¤‚",
-        step1Text: "à¤…à¤ªà¤¨à¥‡ à¤•à¥ˆà¤®à¤°à¥‡ à¤•à¤¾ à¤‰à¤ªà¤¯à¥‹à¤— à¤•à¤°à¥‡à¤‚ à¤¯à¤¾ à¤«à¤¸à¤² à¤”à¤° à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤•à¥€ à¤¸à¥à¤ªà¤·à¥à¤Ÿ à¤›à¤µà¤¿ à¤…à¤ªà¤²à¥‹à¤¡ à¤•à¤°à¥‡à¤‚à¥¤",
-        step2Title: "2. à¤à¤†à¤ˆ à¤µà¤¿à¤¶à¥à¤²à¥‡à¤·à¤£",
-        step2Text: "YOLOv8 à¤®à¥‰à¤¡à¤² à¤›à¤µà¤¿ à¤•à¥‹ à¤¸à¥à¤•à¥ˆà¤¨ à¤•à¤°à¤•à¥‡ à¤µà¤¿à¤¶à¥à¤µà¤¾à¤¸ à¤¸à¥à¤•à¥‹à¤° à¤•à¥‡ à¤¸à¤¾à¤¥ à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤ªà¥à¤°à¤œà¤¾à¤¤à¤¿à¤¯à¥‹à¤‚ à¤•à¥€ à¤ªà¤¹à¤šà¤¾à¤¨ à¤•à¤°à¤¤à¤¾ à¤¹à¥ˆà¥¤",
-        step3Title: "3. à¤ªà¤°à¤¿à¤£à¤¾à¤® à¤¦à¥‡à¤–à¥‡à¤‚",
-        step3Text: "à¤¸à¤‚à¤¸à¤¾à¤§à¤¿à¤¤ à¤›à¤µà¤¿, à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤•à¥€ à¤œà¤¾à¤¨à¤•à¤¾à¤°à¥€ à¤”à¤° à¤¹à¤¾à¤² à¤•à¥€ à¤ªà¤¹à¤šà¤¾à¤¨ à¤•à¤¾ à¤‡à¤¤à¤¿à¤¹à¤¾à¤¸ à¤¦à¥‡à¤–à¥‡à¤‚à¥¤",
-        footerText: "Â© 2026 à¤µà¥€à¤¡à¤µà¤¿à¤œà¤¼à¤¨ | à¤†à¤§à¥à¤¨à¤¿à¤• à¤–à¥‡à¤¤à¥‹à¤‚ à¤•à¥‡ à¤²à¤¿à¤ à¤¸à¥à¤®à¤¾à¤°à¥à¤Ÿ à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤ªà¤¹à¤šà¤¾à¤¨",
-        noActivity: "à¤¹à¤¾à¤² à¤•à¥€ à¤•à¥‹à¤ˆ à¤—à¤¤à¤¿à¤µà¤¿à¤§à¤¿ à¤¨à¤¹à¥€à¤‚",
-        found: "à¤®à¤¿à¤²à¥‡",
-        noDatabase: "à¤‡à¤¸à¤²à¤¿à¤ à¤•à¥‹à¤ˆ à¤¡à¥‡à¤Ÿà¤¾à¤¬à¥‡à¤¸ à¤ªà¥à¤°à¤µà¤¿à¤·à¥à¤Ÿà¤¿ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆ",
-        learnMore: "à¤”à¤° à¤œà¤¾à¤¨à¥‡à¤‚",
-        failedInfo: "à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤•à¥€ à¤œà¤¾à¤¨à¤•à¤¾à¤°à¥€ à¤²à¥‹à¤¡ à¤¨à¤¹à¥€à¤‚ à¤¹à¥‹ à¤¸à¤•à¥€à¥¤",
-        cameraError: "à¤•à¥ˆà¤®à¤°à¤¾ à¤¤à¥à¤°à¥à¤Ÿà¤¿",
-        noWeedsDetected: "à¤•à¥‹à¤ˆ à¤–à¤°à¤ªà¤¤à¤µà¤¾à¤° à¤¨à¤¹à¥€à¤‚ à¤®à¤¿à¤²à¤¾à¥¤"
+        navRealtime: "रियल-टाइम पहचान",
+        navAI: "एआई वर्गीकरण",
+        navSpecies: "3 प्रजातियाँ",
+        moreAbout: "वीडविज़न के बारे में अधिक",
+
+        heroText: "आधुनिक खेतों के लिए एआई-संचालित सटीक खरपतवार पहचान। रियल-टाइम छवि विश्लेषण से फसलों की रक्षा करें और रसायनों का उपयोग कम करें।",
+
+        liveFeed: "लाइव फीड",
+        startFeed: "फीड शुरू करें",
+        captureDetect: "कैप्चर और पहचान",
+        stop: "रोकें",
+        imageUpload: "छवि अपलोड",
+        analyzeImage: "छवि का विश्लेषण करें",
+        confidence: "पहचान का विश्वास",
+        analysisProgress: "एआई विश्लेषण जारी है...",
+        ready: "तैयार",
+        analysisResult: "विश्लेषण परिणाम",
+        processedHere: "प्रोसेस की गई छवियाँ यहाँ दिखाई देंगी।",
+        results: "परिणाम",
+        noDetections: "अभी कोई पहचान नहीं हुई।",
+        weedInfo: "खरपतवार की जानकारी",
+        clickBadge: "अधिक जानकारी के लिए बैज पर क्लिक करें।",
+        history: "पहचान का इतिहास",
+
+        aboutTitle: "वीडविज़न के बारे में",
+        aboutText: "वीडविज़न एक एआई-संचालित स्मार्ट कृषि सहायक है जो फसलों की छवियों में खरपतवार की पहचान करता है और किसानों को तेज़ एवं अधिक लक्षित खरपतवार प्रबंधन संबंधी निर्णय लेने में मदद करता है।",
+
+        howTitle: "यह कैसे काम करता है",
+        step1Title: "1. छवि कैप्चर करें",
+        step1Text: "अपने कैमरे का उपयोग करें या फसल और खरपतवार की स्पष्ट छवि अपलोड करें।",
+
+        step2Title: "2. एआई विश्लेषण",
+        step2Text: "YOLOv8 मॉडल छवि को स्कैन करके विश्वास स्कोर के साथ खरपतवार की प्रजातियों की पहचान करता है।",
+
+        step3Title: "3. परिणाम देखें",
+        step3Text: "प्रोसेस की गई छवि, खरपतवार की जानकारी और हाल की पहचान का इतिहास देखें।",
+
+        footerText: "© 2026 वीडविज़न | आधुनिक खेतों के लिए स्मार्ट खरपतवार पहचान",
+
+        noActivity: "हाल की कोई गतिविधि नहीं",
+        found: "मिले",
+        noDatabase: "इसके लिए कोई डेटाबेस प्रविष्टि नहीं है",
+        learnMore: "और जानें",
+        failedInfo: "खरपतवार की जानकारी लोड नहीं हो सकी।",
+        cameraError: "कैमरा त्रुटि",
+        noWeedsDetected: "कोई खरपतवार नहीं मिला।"
     }
 };
 
@@ -100,8 +108,11 @@ function applyLanguage(language) {
     });
 
     const toggle = document.getElementById("language-toggle");
-    toggle.textContent = language === "en" ? "à¤¹à¤¿à¤‚à¤¦à¥€" : "English";
-    toggle.setAttribute("aria-label", language === "en" ? "Switch to Hindi" : "à¤…à¤‚à¤—à¥à¤°à¥‡à¤œà¤¼à¥€ à¤®à¥‡à¤‚ à¤¬à¤¦à¤²à¥‡à¤‚");
+    toggle.textContent = language === "en" ? "हिंदी" : "English";
+
+    toggle.setAttribute(
+        "aria-label",
+        language === "en" ? "हिंदी में बदलें" : "Switch to Hindi");
 
     if (lastWeedName) fetchWeedDetails(lastWeedName);
     if (lastDetections.length) renderResults(lastDetections);
@@ -120,7 +131,7 @@ const loader = document.getElementById("ai-loader");
 let cameraStream = null;
 
 // 1. Camera Logic
-startCamBtn.onclick = async () => {
+startCamBtn.onclick = async() => {
     try {
         cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
         liveVideo.srcObject = cameraStream;
@@ -241,10 +252,10 @@ function updateGauge(score, label) {
     const gVal = document.getElementById("gauge-value");
     const gLab = document.getElementById("gauge-label");
     const gProg = document.getElementById("gauge-progress");
-    if(gVal) gVal.innerText = val + "%";
-    if(gLab) gLab.innerText = label;
+    if (gVal) gVal.innerText = val + "%";
+    if (gLab) gLab.innerText = label;
     // Animates the green confidence ring
-    if(gProg) gProg.style.strokeDashoffset = 251.2 - (val / 100) * 251.2;
+    if (gProg) gProg.style.strokeDashoffset = 251.2 - (val / 100) * 251.2;
 }
 
 function renderResults(dets) {
