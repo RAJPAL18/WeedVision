@@ -1,5 +1,8 @@
+
+Flask
+flask-cors
 ultralytics
-opencv-python
+opencv-python-headless
 numpy
-fastapi
-uvicorn
+Pillow
+SQLAlchemy
